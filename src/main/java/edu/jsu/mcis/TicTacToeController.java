@@ -2,7 +2,13 @@ package edu.jsu.mcis;
 
 import edu.jsu.mcis.TicTacToeModel.Result;
 
-public class TicTacToeController {
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+public class TicTacToeController implements ActionListener {
 
     private final TicTacToeModel model;
     private final TicTacToeView view;
@@ -14,36 +20,38 @@ public class TicTacToeController {
         /* Initialize model, view, and width */
 
         model = new TicTacToeModel(width);
-        view = new TicTacToeView();
+        view = new TicTacToeView(this, width);
         
     }
 
-    public void start() {
-    
-        /* MAIN LOOP (repeats until game is over) */
+    public String getMarkAsString(int row, int col) {
+        return (model.getMark(row, col).toString());
+    }
 
-        /* Display the board using the View's "showBoard()", then use
-           "getNextMove()" to get the next move from the player.  Enter
-           the move (using the Model's "makeMark()", or display an error
-           using the View's "showInputError()" if the move is invalid. */
+    public TicTacToeView getView() {
+        return view;
+    }
 
-        // INSERT YOUR CODE HERE
-        boolean gameOver;
-        do{
-            view.showBoard(model.toString());
-            TicTacToeMove move = view.getNextMove(model.isXTurn()); //Syntax?
-            if(!model.makeMark(move.getRow(), move.getCol()))
-                System.out.println("Location invalid or already marked!");
-            
-            gameOver = (model.getResult() == Result.NONE)? false : true;
-        }while (!gameOver);
-        
-        /* After the game is over, show the final board and the winner */
+    @Override
+    public void actionPerformed(ActionEvent event) {
+        String name = ((JButton) event.getSource()).getName();
 
-        view.showBoard(model.toString());
+        //ArrayList<String> indexes = new ArrayList(Arrays.asList(name.substring(6).split("-")));
+        int row = Integer.parseInt(name.substring(6, 7));
+        int col = Integer.parseInt(name.substring(7));
 
-        view.showResult(model.getResult().toString());
-        
+
+        model.makeMark(row, col);
+        view.updateSquares();
+
+        Result result = model.getResult();
+
+        if (!(result == Result.NONE)) {
+            view.showResult(result.toString());
+            view.disableSquares();
+        }
+
+
     }
 
 }

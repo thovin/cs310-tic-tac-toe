@@ -18,7 +18,7 @@ public class TicTacToeModel {
 
         private String message;
         
-        private Mark(String msg) {
+        Mark(String msg) {
             message = msg;
         }
         
@@ -27,7 +27,7 @@ public class TicTacToeModel {
             return message;
         }
         
-    };
+    }
     
     /* Result (represents the final state of the game: X wins, O wins, a TIE,
        or NONE if the game is not yet over) */
@@ -41,7 +41,7 @@ public class TicTacToeModel {
 
         private String message;
         
-        private Result(String msg) {
+        Result(String msg) {
             message = msg;
         }
         
@@ -50,8 +50,8 @@ public class TicTacToeModel {
             return message;
         }
         
-    };
-    
+    }
+
     /* CONSTRUCTOR */
     
     public TicTacToeModel() {
@@ -62,7 +62,7 @@ public class TicTacToeModel {
     
     /* CONSTRUCTOR */
     
-    public TicTacToeModel(int width) {//DONE?
+    public TicTacToeModel(int width) {
         
         /* Initialize width; X goes first */
         
@@ -80,11 +80,10 @@ public class TicTacToeModel {
                 board[i][j] = Mark.EMPTY;
             }
         }
-        // INSERT YOUR CODE HERE
-        
+
     }
 	
-    public boolean makeMark(int row, int col) {//DONE?
+    public boolean makeMark(int row, int col) {
         
         /* Use "isValidSquare()" to check if the specified location is in range,
            and use "isSquareMarked()" to see if the square is empty!  If the
@@ -92,7 +91,6 @@ public class TicTacToeModel {
            toggle "xTurn" from true to false (or vice-versa) to switch to the
            other player before returning TRUE.  Otherwise, return FALSE. */
         
-        // INSERT YOUR CODE HERE
         boolean canMark = true;
         
         if (!isValidSquare(row, col)) {canMark = false;}
@@ -112,28 +110,22 @@ public class TicTacToeModel {
         
         return canMark;
         
-        //return false; // remove this line later!
-        
+
     }
 	
-    private boolean isValidSquare(int row, int col) {//DONE?
+    private boolean isValidSquare(int row, int col) {
         
         /* Return TRUE if the specified location is within the bounds of the board */
         
-        // INSERT YOUR CODE HERE
-        return (row > width || col > width || row < 0 || col < 0)? false : true;
-        //return !(row > size || col > size || row < 0 || col < 0);
+        return row <= width && col <= width && row >= 0 && col >= 0;
 
-
-        //return false; // remove this line later!
         
     }
 	
-    private boolean isSquareMarked(int row, int col) {//DONE?
+    private boolean isSquareMarked(int row, int col) {
         
         /* Return TRUE if the square at specified location is marked */
         
-        // INSERT YOUR CODE HERE
         try {
             return board[row][col] != Mark.EMPTY;
         }
@@ -141,28 +133,22 @@ public class TicTacToeModel {
             return true;
         }
 
-        //return false; // remove this line later!
-            
     }
 	
-    public Mark getMark(int row, int col) {//DONE?
+    public Mark getMark(int row, int col) {
         
         /* Return the mark from the square at the specified location */
         
-        // INSERT YOUR CODE HERE
         return board[row][col];
 
-        //return null; // remove this line later!
-            
     }
 	
-    public Result getResult() {//DONE?
+    public Result getResult() {
         
         /* Call "isMarkWin()" to see if X or O is the winner, if the game is a
            TIE, or if the game is not over.  Return the corresponding Result
            value */
         
-        // INSERT YOUR CODE HERE
         if (isMarkWin(Mark.X)){
             return Result.X;
         }
@@ -182,16 +168,14 @@ public class TicTacToeModel {
         else
             return null;
 
-        //return null; // remove this line later!
-        
+
     }
 	
-    private boolean isMarkWin(Mark mark) {//DONE?
+    private boolean isMarkWin(Mark mark) {
         
         /* Check the squares of the board to see if the specified mark is the
            winner */
         
-        // INSERT YOUR CODE HERE
         boolean markWins = false;
         boolean xAxis = true;
         boolean yAxis = true;
@@ -223,33 +207,20 @@ public class TicTacToeModel {
                 diagonal2 = false;
             }
         }
-        
-        if (yAxis || xAxis || diagonal1 || diagonal2)
-            return true;
-        
-        else
-            return false;
 
-        //return false; // remove this line later!
+        return yAxis || xAxis || diagonal1 || diagonal2;
 
     }
 	
-    private boolean isTie() {//DONE?
+    private boolean isTie() {
         
         /* Check the squares of the board to see if the game is a tie */
-        
-        // INSERT YOUR CODE HERE
-        if (!isMarkWin(Mark.X) && !isMarkWin(Mark.O))
-            return true;
-        
-        else
-            return false;
 
-        //return false; // remove this line later!
-        
+        return !isMarkWin(Mark.X) && !isMarkWin(Mark.O);
+
     }
 
-    public boolean isGameover() {//Adjusted for my code
+    public boolean isGameover() {
         
         /* Return TRUE if the game is over */
         
@@ -262,8 +233,7 @@ public class TicTacToeModel {
         }
         
         return isOver;
-        //return true;
-        
+
     }
 
     public boolean isXTurn() {
@@ -289,27 +259,6 @@ public class TicTacToeModel {
         
         /* Output the board contents as a string (see examples) */
         
-        // INSERT YOUR CODE HERE
-        //System.out.print("\n\n  ");
-        /*
-        System.out.print("  ");
-        for (int i = 0; i < width; i++){
-            System.out.print(i);
-        }
-        System.out.print("\n\n");
-
-        for (int i = 0; i < width; i++){
-            System.out.print(i + " ");
-            
-            for (int j = 0; j < width; j++){
-                System.out.print(board[i][j].toString());
-            }
-            System.out.print("\n");
-        }
-        System.out.print("\n");
-        */
-
-        //output.append("  ");
         for (int i = 0; i < width; i++){
             output.append(i);
         }
